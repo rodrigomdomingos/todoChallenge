@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<title>Challenge</title>
+		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+		 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css' />
+		<style type="text/css">
+			body{
+				background-color: LightGray;
+			}
+			.cabecalho{
+				text-align: center;
+				font-family: Helvetica;
+				letter-spacing: 2px;
+				margin: 50px;
+			}
+		    .ui-row-editor .ui-row-editor-pencil {
+		        margin-left:8px;
+		    }
+		    .col-centered{
+			    float: none;
+			    margin: 0 auto;
+			}
+		</style>
+	
+	</h:head>
+	<h:body >
+		<div class="col-lg-6 col-centered">
+			<div class="cabecalho">
+			    <h1>Todos</h1>  
+			</div>
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true"/>
+				<div class="input-group justify-content-center mb-3">
+					<h:inputText class="form-control" id="taskIn" value="#{taskBean.task.titulo}"></h:inputText>
+					<div class="input-group-prepend">
+						<h:commandButton class="btn btn-dark" value="Adicionar" action="#{taskBean.addTask}" >
+							<f:ajax execute="taskIn"  render="dataTable"/>
+						</h:commandButton>
+					</div>
+				</div>
+				 <p:dataTable id="dataTable" var="taskItem" value="#{taskBean.list}" editable="true" style="margin-bottom:20px">
+				 	<p:ajax event="rowEdit" listener="#{taskBean.update(taskItem.id, taskItem.titulo)}" update=":form:msgs" />
+			        <p:ajax event="rowEditCancel" update=":form:msgs" />
+			 
+			        <p:column headerText="Year">
+			            <p:cellEditor>
+			                <f:facet name="output"><h:outputText value="#{taskItem.titulo}" /></f:facet>
+			                <p:rowEditor />
+			                <f:facet name="input"><p:inputText value="#{taskItem.titulo}" style="width:100%" label="Year"/></f:facet>
+			            </p:cellEditor>
+			        </p:column>
+			        <p:column style="width:35px;">
+			            <p:rowEditor />
+			        </p:column>
+			        
+			         <p:column style="width:9%;">
+		                <h:commandLink id="check"
+					    action="#{taskBean.remover(taskItem.id)}"
+					    styleClass="btn btn-default">
+					    	<f:ajax execute="check"  render="dataTable"/>
+					    	<i class="fa fa-check" title="Delete"></i>
+						</h:commandLink>
+					</p:column>
+			    </p:dataTable>
+			</h:form>
+		</div>	
+	</h:body>
+</html>
