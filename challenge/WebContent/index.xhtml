@@ -59,7 +59,7 @@
 			        
 			         <p:column style="width:9%;">
 		                <h:commandLink id="check"
-					    action="#{taskBean.remover(taskItem.id)}"
+					    action="#{taskBean.remover(taskItem)}"
 					    styleClass="btn btn-default">
 					    	<f:ajax execute="check"  render="dataTable"/>
 					    	<i class="fa fa-check" title="Delete"></i>

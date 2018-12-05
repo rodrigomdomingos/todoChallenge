@@ -16,16 +16,18 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
   
+//Spring MVC
 @Controller
 @RequestMapping("/")
+//JSF
 @ManagedBean(name="taskBean")
 @SessionScoped
 public class TaskController {
+	
 	  String message = "Spring MVC!";
 	  EntityManagerFactory emf;
 	  EntityManager em;
 	  Task task = new Task();
-	  Task taskUpdate = new Task();
 	  List<Task> list;	
 
 		
@@ -45,10 +47,9 @@ public class TaskController {
 	  }
 	  
 	  @RequestMapping("/remover")
-	  public void remover(int task) {
+	  public void remover(Task task) {
 		  em.getTransaction().begin();
-		  Query q = em.createNativeQuery("delete from task where id= '" + task + "'");
-		  q.executeUpdate();
+		  em.remove(task);
 		  em.getTransaction().commit();
 		  
 		  getListOfTask();
@@ -57,29 +58,18 @@ public class TaskController {
 	  @RequestMapping("/update")
 	  public void update(int id, String task) {
 		  em.getTransaction().begin();
-		  Query q =em.createNativeQuery("update task set titulo ='" + task + "' where id= '"+ id  +"'");
+		  Query q = em.createNativeQuery("update task set titulo ='" + task + "' where id= '"+ id  +"'");
 		  q.executeUpdate();
 		  em.getTransaction().commit();
 	  }
 	  
 	  public void getListOfTask() {
-		  Query q =em.createNativeQuery("select * from task", Task.class);
+		  Query q = em.createNativeQuery("select * from task", Task.class);
 		  @SuppressWarnings("unchecked")
 		  List<Task> list = (List<Task>) q.getResultList();
 		  this.list = list;
 	  }
-	  	
-	  	@RequestMapping("/teste")
-		public ModelAndView showMessage2(@RequestParam(value = "name", required = false, defaultValue = "World")String name) {
-			ModelAndView mv = new ModelAndView("helloworld");
-			mv.addObject("message", message);
-			mv.addObject("name", name);
-			Task task = new Task();
-			task.setTitulo(name);
-			//remover(task);
-			return mv;
-	  	}
-	  
+	  		  
 	  	//@RequestMapping("/hello")
 		public ModelAndView showMessage(
 		@RequestParam(value = "name", required = false, defaultValue = "World") String name) {
@@ -89,7 +79,6 @@ public class TaskController {
 			
 			return mv;
 	  	}
-		
 		
 		public void addTask() {
 			salvar(task);
