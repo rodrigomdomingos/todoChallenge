@@ -15,3 +15,7 @@ Funcionamento:
 Existe um (input + button) e embaixo uma Lista. Ao digitar uma tarefa e apertar no botão a tarefa é adicionada na lista, que é atualizada consultando o banco de dados. Na lista, em cada tarefa é possivel clicar em um botão 'Check' que retirar ela da lista, ou no botão 'Editar' que abre a edição do campo da tarefa, e após confirmar é salvo no banco de dados.
 
 O projeto em React consome por url gerenciada pelo Spring MVC a lista retornada em JSON de todas as tarefas e adiciona novas tarefas.
+
+Instruções para Utilização:
+  É necessário o MySQL onde foi criado uma database 'todo' e uma table 'task' [id AUTO_INCREMENT, titulo varchar]
+  A IDE utilizada foi o Eclipse usando o TomCat v9.0.
