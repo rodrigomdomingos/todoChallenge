@@ -9,7 +9,7 @@ Após download pelo Spring Initializr foi feita a importação no Eclipse, onde 
 As importações dos frameworks são visualizadas no pom.xml
 A ordem de desenvolvimento foi:
 Spring Boot -> Spring MVC -> JSF -> MYSql -> JPA -> Hibernate -> Primefaces -> BootStrap 4.
-O React foi feito em um outro projeto:
+O React foi feito em um outro projeto: https://github.com/rodrigomdomingos/todoChallengeReact
 
 Funcionamento:
 Existe um (input + button) e embaixo uma Lista. Ao digitar uma tarefa e apertar no botão a tarefa é adicionada na lista, que é atualizada consultando o banco de dados. Na lista, em cada tarefa é possivel clicar em um botão 'Check' que retirar ela da lista, ou no botão 'Editar' que abre a edição do campo da tarefa, e após confirmar é salvo no banco de dados.
